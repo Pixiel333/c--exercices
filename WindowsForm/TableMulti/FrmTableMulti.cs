@@ -122,7 +122,7 @@ namespace WinAppMulti
             {
                 for (int i=0;i<=9;i++)
                 {
-                    base.txt
+                    
                 }
             }
         }
