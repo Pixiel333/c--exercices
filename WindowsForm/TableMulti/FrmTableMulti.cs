@@ -68,6 +68,7 @@ namespace WinAppMulti
         {
             panelExcercer.Enabled = true;
             affichageExercer();
+            supprimeTxtAffiche();
         }
         private void affichageExercer()
         {
@@ -109,7 +110,7 @@ namespace WinAppMulti
             panelExcercer.Enabled = false;
             txtTable.Clear();
             txtNombre.Clear();
-            txtReponse.Clear();
+            txtReponse.Clear();           
             if (nudTable.Enabled == true)
             {
                 txtAfficheTable.Text = $"TABLE DU {nudTable.Value}------------------------" + Environment.NewLine;
@@ -119,12 +120,68 @@ namespace WinAppMulti
                 }
             }
             else
-            {
-                for (int i=0;i<=9;i++)
+            {               
+                if (tlpResultat.Controls.Count<10)
                 {
-                    
+                    txtAfficheTable.Text = $"TABLE DU 1------------------------" + Environment.NewLine;
+                    for (int i = 1; i <= 10; i++)
+                        {
+                            txtAfficheTable.Text = txtAfficheTable.Text + $"1 x {i} = {1 * i}" + Environment.NewLine;
+                        }
+                    creationTxtAffiche();
+                }
+
+            }
+        }
+        
+        private void creationTxtAffiche()
+        {
+            for (int i = 1; i <= 9; i++)
+            {
+                this.txtAfficheTable = new System.Windows.Forms.TextBox();
+                this.txtAfficheTable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+                if (i < 5)
+                {
+                    this.tlpResultat.Controls.Add(this.txtAfficheTable, i, 0);
+                }
+                else
+                {
+                    this.tlpResultat.Controls.Add(this.txtAfficheTable, i - 5, 1);
+                }
+                this.txtAfficheTable.Margin = new System.Windows.Forms.Padding(4);
+                this.txtAfficheTable.Multiline = true;
+                this.txtAfficheTable.Name = "txtAfficheTable";
+                this.txtAfficheTable.ReadOnly = true;
+                this.txtAfficheTable.Size = new System.Drawing.Size(105, 208);
+                this.txtAfficheTable.TabIndex = i;
+                txtAfficheTable.Text = $"TABLE DU {i + 1}------------------------" + Environment.NewLine;
+                for (int j = 1; j <= 10; j++)
+                {
+                    txtAfficheTable.Text = txtAfficheTable.Text + $"{i + 1} x {j} = {(i + 1) * j}" + Environment.NewLine;
                 }
             }
+        }
+
+
+        private void supprimeTxtAffiche()
+        {
+            this.tlpResultat.Controls.Clear();
+            this.txtAfficheTable = new System.Windows.Forms.TextBox();
+            this.tlpResultat.Controls.Add(this.txtAfficheTable, 0, 0);
+            this.txtAfficheTable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtAfficheTable.Location = new System.Drawing.Point(4, 4);
+            this.txtAfficheTable.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAfficheTable.Multiline = true;
+            this.txtAfficheTable.Name = "txtAfficheTable";
+            this.txtAfficheTable.ReadOnly = true;
+            this.txtAfficheTable.Size = new System.Drawing.Size(105, 208);
+            this.txtAfficheTable.TabIndex = 0;
+            panelReviser.Enabled = false;
+        }
+
+        private void btnTerminerReviser_Click(object sender, EventArgs e)
+        {
+            supprimeTxtAffiche();            
         }
     }
 }
